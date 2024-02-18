@@ -190,7 +190,7 @@ def otp_verification(request):
 def char_with_gpt(prompt):
     url = 'https://api.openai.com/v1/chat/completions'
     headers = {
-        'Authorization': 'Bearer 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',  # Replace with your OpenAI API key
+        'Authorization': 'Bearer OpenAI_API_key',  # Replace with your OpenAI_API_key with actual key
         'Content-Type': 'application/json'
     }
 
@@ -242,7 +242,7 @@ def courses(request):
     
 
 def search_google(query):
-    api_key=open(r"C:\users\abhigna\Desktop\hackathon\demo\creds.txt",'r').readlines()[0]
+    api_key=open(r"C:\users\abhigna\Desktop\hackathon\demo\creds.txt",'r').readlines()[0] # API_KEY
     search_engine_id=open(r"C:\users\abhigna\Desktop\hackathon\demo\creds.txt",'r').readlines()[1]
 
     search_query=query
