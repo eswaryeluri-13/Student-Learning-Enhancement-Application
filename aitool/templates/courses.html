@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Courses</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-size: 16px; /* Change to your preferred base font size */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-size: 1.4em; /* Adjust heading font sizes */
+        }
+        .form-control {
+            font-size: 13px; /* Adjust input field font size */
+        }
+        .btn {
+            font-size: 13px; /* Adjust button font size */
+        }
+        .table {
+            font-size: 15px; /* Adjust table font size */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Search Courses</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="course">Enter Course:</label>
+                <input type="text" class="form-control" name="course" id="course" placeholder="Course name here">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        {% if links %}
+            <h2 class="mt-5">Results Found:</h2>
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for link in links %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{{ link }}" target="_blank">{{ link }}</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/boo

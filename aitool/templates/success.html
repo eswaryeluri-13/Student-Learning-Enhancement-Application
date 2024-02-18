@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Registration Success</title>
+    <style>
+        body {
+            background: url("{% static 'images/hi.jpg' %}") no-repeat center center fixed;
+            background-size: cover;;
+            text-align: center;
+            padding: 150px;
+            font-family: 'Lato', sans-serif;
+        }
+
+        #success-message {
+            color: #4CAF50;
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        #back-button {
+            background: #2196F3;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 25px;
+            margin-top: 30px;
+            display: inline-block;
+        }
+
+        #back-button:hover {
+            background: #0c7cd5;
+        }
+
+        #navigation {
+            margin-top: 50px;
+        }
+
+        #navigation a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 20px;
+            font-size: 25px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        #navigation a:hover {
+            color: #1aea2b;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="success-message" class="my-5">{{ success_message|title }} Successful</h1>
+    <br>
+    <h3 class="my-3">Thank you, {{ username }}, for your {{ success_message }}.</h3>
+    <br><br><br>
+    <div id="navigation" class="my-5">
+        <a href="{% url 'aitool:ask_qns_from_pdf' %}" class="btn btn-primary">Ask a Question</a>
+        <a href="{% url 'aitool:courses'  %}" class="btn btn-primary">Search Courses</a>
+        <a href="{% url 'aitool:home' username %}" class="btn btn-primary">Find Similar Interests</a>
+        <a href="{% url 'aitool:chat' %}" class="btn btn-primary">Chat with AI Instructor</a>
+    </div>
+
+    <!-- <a href="{% url 'aitool:home' username %}" id="back-button">Back to Home</a> -->
+</body>
+</html>

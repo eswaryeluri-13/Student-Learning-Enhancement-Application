@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            background: url("{% static 'images/nb.jpeg' %}") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #login-card {
+            background-color: rgba(255, 255, 255, 0.4);
+            padding: 50px;
+            border-radius: 10px;
+            width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+
+        h2 {
+            color: black;
+            text-align: center;
+            margin-bottom: 50px;
+            text-decoration: underline;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-left: 100px;
+            margin-bottom: 16px;
+        }
+
+        label {
+            color: black;
+            margin-bottom: 8px;
+            margin-right: 50px;
+        }
+
+        input,
+        textarea {
+            padding: 8px;
+            border: 1px solid black;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            resize: vertical; /* Allow vertical resizing of textarea */
+        }
+
+        #accept-terms {
+            margin-bottom: 16px;
+        }
+
+        #login-button {
+            background-color: lightgrey;
+            color: black;
+            padding: 8px;
+            border: 1px solid black;
+            border-radius: 4px;
+            margin-left: 250px;
+            width: 100px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #show-password {
+            position: relative;
+            bottom: 40px;
+            margin-left: 280px;
+            cursor: pointer;
+            color: black;
+        }
+
+        #login-button:hover {
+            background-color: green;
+            color: white;
+        }
+
+        p {
+            color: red;
+            text-align: center;
+            margin-top: 50px;
+            /* Add margin to create space between login-card and the message */
+        }
+    </style>
+</head>
+
+<body>
+    
+
+    <div id="login-card">
+        <h2>Login</h2>
+
+        <form method="post" action="{% url 'aitool:login' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" required>
+            </div>
+
+            <div id="password-container" class="form-group">
+                <label for="password">Password: </label>
+                <input type="password" name="password" id="password" required>
+                <span id="show-password" onclick="showPassword()">👀</span>
+            </div>
+
+            <div class="form-group" id="accept-terms">
+                <input type="checkbox" name="accept-terms" id="accept-terms-checkbox" required>
+                <label for="accept-terms-checkbox">I have read and accept all the terms and conditions.</label>
+            </div>
+
+            <button id="login-button" type="submit">Login</button>
+        </form>
+        
+        {% if login_unsuccessful %}
+            <p style="color: red;">Invalid username or password. Please try again.</p>
+        {% endif %}
+    
+    </div>
+
+    
+
+    <script>
+        function showPassword() {
+            var passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

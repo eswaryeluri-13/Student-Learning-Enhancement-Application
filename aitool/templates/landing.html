@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body
+        {
+            background: url("{% static 'images/hi.jpg' %}") no-repeat center center fixed;
+            background-size: cover;;
+            text-align: center;
+            padding: 150px;
+            font-family: 'Lato', sans-serif;
+        }
+        .container {
+/*            border: 1px solid black;*/
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+/*            background-color: #f9f9f9;*/
+            padding: 20px;
+        }
+
+        #chat-container {
+            width: 100%;
+            max-width: 500px; /* Limit chat width for better readability */
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        #chat-box {
+            max-height: 300px; /* Limit chat box height and add scrollbar if necessary */
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        #chat-form {
+            display: flex;
+            align-items: center;
+        }
+
+        #user-input {
+            flex: 1; /* Allow input field to grow as needed */
+            margin-right: 10px;
+        }
+
+        .btn-send {
+            flex-shrink: 0; /* Prevent button from growing */
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #eaeaea;
+        }
+
+        .user-message {
+            background-color: #bde5bd;
+        }
+
+        .bot-message {
+            background-color: #bdc8e5;
+        }
+
+        /* Hover effect for buttons */
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+    </style>
+    <title>Chat with GPT</title>
+</head>
+<body>
+    
+    <div class="container">
+        <h1 class="text-center ">Chat with GPT</h1>
+    <div id="chat-container" class="mx-auto my-3">
+        <div id="chat-box" class="mx-auto"></div>
+
+        <form id="chat-form" method="post" class="mx-5">
+            {% csrf_token %}
+            <div class="row">
+            <div class="col-9"> <!-- Adjust the column width as needed -->
+        <input type="text" name="user_input" placeholder="Enter chat message here" id="user-input" class="form-control" required>
+    </div>
+    <div class="col-3"> <!-- Adjust the column width as needed -->
+        <button type="submit" class="btn btn-primary">Send</button>
+    </div>
+    </div>
+        </form>
+
+        <p class="mt-5">{{answer}}</p>
+        
+    </div>
+</div>
+    <script>
+        document.getElementById('chat-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userInput = document.getElementById('user-input').value.trim();
+            if (userInput !== '') {
+                document.getElementById('chat-box').innerHTML += <p><strong>You:</strong> ${userInput}</p>;
+                document.getElementById('user-input').value = '';
+
+                fetch('', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({ user_input: userInput }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('chat-box').innerHTML += <p><strong>Chatbox:</strong> ${data.response}</p>;
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+    </script>
+</body>
+</html>

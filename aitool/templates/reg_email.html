@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Email OTP</title>
+    <style>
+        body {
+            background: url("{% static 'images/nb.jpeg' %}") no-repeat center center fixed;
+            background-size: cover;
+            height: 200vh;
+            margin: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #registration-card {
+            background-color: rgba(255, 255, 255, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: black;
+            text-align: center;
+            margin-bottom: 50px;
+            text-decoration: underline;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            color: black;
+            margin-bottom: 8px;
+            margin-right: 50px;
+        }
+
+        input,
+        textarea {
+            padding: 8px;
+            border: 1px solid black;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            resize: vertical; /* Allow vertical resizing of textarea */
+        }
+
+        #register-button {
+            background-color: lightgrey;
+            color: black;
+            padding: 8px;
+            border: 1px solid black;
+            border-radius: 4px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #register-button:hover {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="registration-card">
+        <h2>Register</h2>
+
+        <form method="post" action="{% url 'aitool:send_otp_email' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button id="register-button" type="submit">Send OTP</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
