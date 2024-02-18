@@ -275,7 +275,7 @@ def get_similar_profiles(user_profile):
     # Convert indices to integers
     #similar_profiles_indices = list(map(int, similar_profiles_indices))
     print(similar_profiles_indices)
-    similar_profiles_indices.remove(user_profile.id)
+    #similar_profiles_indices.remove(user_profile.id)
     # Retrieve similar profiles using integer indices
     similar_profiles = [user_profiles[idx-1] for idx in similar_profiles_indices]
 
